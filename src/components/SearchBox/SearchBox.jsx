@@ -1,9 +1,8 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
-import { Form, Input,  Button } from './SearchBox.styled';
-import { FiSearch  } from "react-icons/fi";
+import { Form, Input, Button } from './SearchBox.styled';
+import { FiSearch } from 'react-icons/fi';
 import toast, { Toaster } from 'react-hot-toast';
-
 
 export const Searchbox = ({ onSubmit }) => {
   const [query, setQuery] = useState('');
@@ -22,7 +21,7 @@ export const Searchbox = ({ onSubmit }) => {
   return (
     <>
       <Form onSubmit={handleSearchSubmit}>
-        <Button type="submit" >
+        <Button type="submit">
           <FiSearch />
         </Button>
 
@@ -35,13 +34,12 @@ export const Searchbox = ({ onSubmit }) => {
           value={query}
           onChange={handleQueryChange}
         />
-          </Form>
-           <Toaster />
-      </>
-      
+      </Form>
+      <Toaster />
+    </>
   );
 };
 
 Searchbox.propTypes = {
   onSubmit: PropTypes.func.isRequired,
-}
+};

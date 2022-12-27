@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getTrendingMovies } from 'api';
 
-export const Home = () => {
+const Home = () => {
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
@@ -24,7 +24,7 @@ export const Home = () => {
         {movies.map(({ id, title, name }) => {
           return (
             <li key={id}>
-              <Link to={`/movies/${id}`}>{title || name}</Link>
+              <Link to={`/movies/${id}`} state={{ from: `/movies/${id} `}}>{title || name}</Link>
             </li>
           );
         })}
@@ -33,3 +33,5 @@ export const Home = () => {
     </main>
   );
 };
+
+export default Home;

@@ -5,7 +5,7 @@ import toast from 'react-hot-toast';
 
 const BASE_IMG_URL = 'https://image.tmdb.org/t/p/w500';
 
-export const Cast = () => {
+const Cast = () => {
   const { id } = useParams();
   const [actors, setActors] = useState([]);
   useEffect(() => {
@@ -37,3 +37,5 @@ export const Cast = () => {
     </section>
   );
 };
+
+export default Cast;

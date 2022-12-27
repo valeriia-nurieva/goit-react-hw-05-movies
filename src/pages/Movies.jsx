@@ -1,11 +1,11 @@
 import { useSearchParams } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { getMoviesByKeyword } from '../api';
 import { Searchbox } from 'components/SearchBox/SearchBox';
 import toast, { Toaster } from 'react-hot-toast';
 
-export const Movies = () => {
+const Movies = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [searchMovies, setSearchMovies] = useState('');
   const query = searchParams.get('query');
@@ -29,6 +29,8 @@ export const Movies = () => {
     setSearchParams({ query: query });
   };
 
+  const location = useLocation();
+
   return (
     <main>
       <Searchbox onSubmit={handleSumbit} />
@@ -37,7 +39,7 @@ export const Movies = () => {
           {searchMovies.map(({ id, title, name }) => {
             return (
               <li key={id}>
-                <Link to={`/movies/${id}`}>{title || name}</Link>
+                <Link to={`/movies/${id}`} state={{ from: location }}>{title || name}</Link>
               </li>
             );
           })}
@@ -47,3 +49,5 @@ export const Movies = () => {
     </main>
   );
 };
+
+export default Movies;

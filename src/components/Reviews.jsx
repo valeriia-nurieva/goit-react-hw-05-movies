@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { getMovieReviews } from '../api';
 import toast from 'react-hot-toast';
 
-export const Reviews = () => {
+const Reviews = () => {
   const { id } = useParams();
   const [reviews, setReviews] = useState([]);
   useEffect(() => {
@@ -37,3 +37,5 @@ export const Reviews = () => {
     </section>
   );
 };
+
+export default Reviews;
