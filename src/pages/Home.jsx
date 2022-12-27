@@ -24,7 +24,7 @@ export const Home = () => {
         {movies.map(({ id, title, name }) => {
           return (
             <li key={id}>
-              <Link to={`${id}`}>{title || name}</Link>
+              <Link to={`/movies/${id}`}>{title || name}</Link>
             </li>
           );
         })}
