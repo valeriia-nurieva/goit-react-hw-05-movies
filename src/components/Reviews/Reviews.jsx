@@ -1,16 +1,21 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getMovieReviews } from '../api';
 import toast from 'react-hot-toast';
+import { getMovieReviews } from '../../api';
+import { Loader } from 'components/Loader';
+import { ReviewsBox, ReviewCard, ReviewAuthor } from './Reviews.styled';
 
 const Reviews = () => {
   const { id } = useParams();
   const [reviews, setReviews] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     async function getActors() {
       try {
+        setIsLoading(true);
         const result = await getMovieReviews(id);
         setReviews(result);
+        setIsLoading(false);
       } catch (error) {
         toast.error('Oops! Something went wrong! Please try again.');
       }
@@ -20,20 +25,21 @@ const Reviews = () => {
   const { results } = reviews;
   return (
     <section>
-      <ul>
-        {results ? (
+      <ReviewsBox>
+        {results && results.length > 0 ? (
           results.map(({ author, id, content }) => {
             return (
-              <li key={id}>
-                <p>{author}</p>
+              <ReviewCard key={id}>
+                <ReviewAuthor>{author}</ReviewAuthor>
                 <p>{content}</p>
-              </li>
+              </ReviewCard>
             );
           })
         ) : (
           <div>We don't have any reviews for this movies</div>
         )}
-      </ul>
+      </ReviewsBox>
+      {isLoading && <Loader />}
     </section>
   );
 };

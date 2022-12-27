@@ -1,16 +1,20 @@
 import toast, { Toaster } from 'react-hot-toast';
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { getTrendingMovies } from 'api';
+import { MoviesGallery } from 'components/MoviesGallery/MoviesGallery';
+import { Loader } from 'components/Loader';
 
 const Home = () => {
   const [movies, setMovies] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     async function getMovies() {
       try {
+        setIsLoading(true);
         const { results } = await getTrendingMovies();
         setMovies(results);
+        setIsLoading(false);
       } catch (error) {
         toast.error('Oops! Something went wrong! Please try again.');
       }
@@ -20,15 +24,8 @@ const Home = () => {
 
   return (
     <main>
-      <ul>
-        {movies.map(({ id, title, name }) => {
-          return (
-            <li key={id}>
-              <Link to={`/movies/${id}`} state={{ from: `/movies/${id} `}}>{title || name}</Link>
-            </li>
-          );
-        })}
-      </ul>
+      <MoviesGallery movies={movies} />
+      {isLoading && <Loader />}
       <Toaster />
     </main>
   );

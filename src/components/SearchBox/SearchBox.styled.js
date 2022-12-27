@@ -1,14 +1,15 @@
 import styled from "styled-components";
 
-
 export const Form = styled.form`
   display: flex;
-  align-items: center;
+  align-items: baseline;
   width: 100%;
   max-width: 600px;
   background-color: #fff;
   border-radius: 3px;
   overflow: hidden;
+  border: 1px dashed #696969;
+  margin-bottom: 16px;
 `;
 
 export const Input = styled.input`
@@ -18,8 +19,6 @@ export const Input = styled.input`
   font-size: 20px;
   border: none;
   outline: none;
-  padding-left: 4px;
-  padding-right: 4px;
   ::placeholder {
     font: inherit;
     font-size: 18px;
@@ -38,6 +37,7 @@ export const Button = styled.button`
   transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
   outline: none;
+  background-color: transparent;
   :hover {
     opacity: 1;
   }

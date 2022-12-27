@@ -1,13 +1,15 @@
 import { useSearchParams } from 'react-router-dom';
-import { Link, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
 import { getMoviesByKeyword } from '../api';
 import { Searchbox } from 'components/SearchBox/SearchBox';
-import toast, { Toaster } from 'react-hot-toast';
+import { MoviesGallery } from 'components/MoviesGallery/MoviesGallery';
+import { Loader } from 'components/Loader';
 
 const Movies = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [searchMovies, setSearchMovies] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const query = searchParams.get('query');
 
   useEffect(() => {
@@ -16,8 +18,14 @@ const Movies = () => {
     }
     async function getMovie() {
       try {
+        setIsLoading(true);
         const { results } = await getMoviesByKeyword(query);
-        results.length > 0 ? setSearchMovies(results) : toast.error(`Sorry! We couldn't find any movies matching your search query ${query}`);
+        results.length > 0
+          ? setSearchMovies(results)
+          : toast.error(
+              `Sorry! We couldn't find any movies matching your search query ${query}`
+          );
+        setIsLoading(false);
       } catch (error) {
         toast.error('Oops! Something went wrong! Please try again.');
       }
@@ -29,22 +37,11 @@ const Movies = () => {
     setSearchParams({ query: query });
   };
 
-  const location = useLocation();
-
   return (
     <main>
       <Searchbox onSubmit={handleSumbit} />
-      {searchMovies && (
-        <ul>
-          {searchMovies.map(({ id, title, name }) => {
-            return (
-              <li key={id}>
-                <Link to={`/movies/${id}`} state={{ from: location }}>{title || name}</Link>
-              </li>
-            );
-          })}
-        </ul>
-      )}
+      {searchMovies && <MoviesGallery movies={searchMovies} />}
+      {isLoading && <Loader />}
       <Toaster />
     </main>
   );
