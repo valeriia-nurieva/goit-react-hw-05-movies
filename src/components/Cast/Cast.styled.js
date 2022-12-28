@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const CastBox = styled.ul`
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 20px;
 `;
 

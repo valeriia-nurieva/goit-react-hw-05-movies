@@ -25,20 +25,20 @@ const Reviews = () => {
   const { results } = reviews;
   return (
     <section>
-      <ReviewsBox>
-        {results && results.length > 0 ? (
-          results.map(({ author, id, content }) => {
+      {results && results.length > 0 ? (
+        <ReviewsBox>
+          {results.map(({ author, id, content }) => {
             return (
               <ReviewCard key={id}>
                 <ReviewAuthor>{author}</ReviewAuthor>
                 <p>{content}</p>
               </ReviewCard>
             );
-          })
-        ) : (
-          <div>We don't have any reviews for this movies</div>
-        )}
-      </ReviewsBox>
+          })}
+        </ReviewsBox>
+      ) : (
+        <div>We don't have any reviews for this movies.</div>
+      )}
       {isLoading && <Loader />}
     </section>
   );

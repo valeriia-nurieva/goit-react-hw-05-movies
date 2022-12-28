@@ -4,6 +4,7 @@ import { getMovieById } from '../../api';
 import toast, { Toaster } from 'react-hot-toast';
 import { BsArrowLeftShort } from 'react-icons/bs';
 import { Loader } from 'components/Loader';
+import { AdditionalInfo } from 'components/AdditionalInfo/AdditionalInfo';
 import {
   BackLinkHref,
   MovieCard,
@@ -11,8 +12,6 @@ import {
   Title,
   InfoTitle,
   Info,
-  AdditionalTitle,
-  AdditionalInfo
 } from './MovieDetails.styles';
 
 const BASE_IMG_URL = 'https://image.tmdb.org/t/p/w500';
@@ -47,7 +46,14 @@ const MovieDetails = () => {
         Go back
       </BackLinkHref>
       <MovieCard>
-        <Image src={poster_path? `${BASE_IMG_URL}${poster_path}` : 'https://i.ibb.co/4ThsTsv/poster-coming-soon.jpg'} alt="Movie poster" />
+        <Image
+          src={
+            poster_path
+              ? `${BASE_IMG_URL}${poster_path}`
+              : 'https://i.ibb.co/4ThsTsv/poster-coming-soon.jpg'
+          }
+          alt="Movie poster"
+        />
         <div>
           <Title>{title}</Title>
           <InfoTitle>
@@ -62,9 +68,7 @@ const MovieDetails = () => {
           </InfoTitle>
         </div>
       </MovieCard>
-      <AdditionalTitle>Additional information</AdditionalTitle>
-      <AdditionalInfo to="cast">Cast</AdditionalInfo>
-      <AdditionalInfo to="reviews">Reviews</AdditionalInfo>
+      <AdditionalInfo />
       <Suspense fallback={<Loader />}>
         <Outlet />
       </Suspense>

@@ -8,7 +8,7 @@ export const ReviewsBox = styled.ul`
 `;
 
 export const ReviewCard = styled.li`
-  flex-basis: calc((100% - 20px) / 2);
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;

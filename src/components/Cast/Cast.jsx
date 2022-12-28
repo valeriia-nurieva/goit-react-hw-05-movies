@@ -24,24 +24,34 @@ const Cast = () => {
     }
     getActors();
   }, [id]);
-
+  const { cast } = actors;
   return (
     <section>
-      <CastBox>
-        {actors.cast &&
-          actors.cast.map(({ id, profile_path, name, character }) => {
+      {cast && cast.length > 0 ? (
+        <CastBox>
+          {cast.map(({ id, profile_path, name, character }) => {
             return (
               <CastItem key={id}>
                 <Thumb>
-                <Image src={profile_path? `${BASE_IMG_URL}${profile_path}` : 'https://i.pinimg.com/736x/f5/27/41/f52741fb62bf1d821948a49204406bdc.jpg'} alt="Actor"/>
+                  <Image
+                    src={
+                      profile_path
+                        ? `${BASE_IMG_URL}${profile_path}`
+                        : 'https://i.pinimg.com/736x/f5/27/41/f52741fb62bf1d821948a49204406bdc.jpg'
+                    }
+                    alt="Actor"
+                  />
                 </Thumb>
                 <p>{name}</p>
                 <p>{character}</p>
               </CastItem>
             );
           })}
-      </CastBox>
-    {isLoading && <Loader />}
+        </CastBox>
+      ) : (
+        <div>We don't have information about cast for this movies.</div>
+      )}
+      {isLoading && <Loader />}
     </section>
   );
 };
